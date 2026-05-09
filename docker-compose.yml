@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  funasr-api:
+    build: .
+    image: my-funasr-api:latest
+    container_name: funasr-api
+    ports:
+      - "5045:5045"
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    runtime: nvidia
+    volumes:
+      - ./hf_cache:/root/.cache/huggingface
+      - ./funasr_cache:/root/.cache/modelscope
+    restart: unless-stopped
+    shm_size: 2gb
